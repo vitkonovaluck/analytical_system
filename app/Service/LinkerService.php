@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Models\LinkerOrder;
 use App\Models\LinkerProduct;
 use Carbon\Carbon;
-use DateTimeInterface;
 
 class LinkerService
 {
@@ -66,13 +65,4 @@ class LinkerService
             });
     }
 
-    protected function formatDate($date)
-    {
-        try {
-            return Carbon::parse($date)->toIso8601String();
-        } catch (\Exception $e) {
-            \Log::error('Date parsing error', ['error' => $e->getMessage()]);
-            return Carbon::now()->toIso8601String();
-        }
-    }
 }
