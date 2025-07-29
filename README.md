@@ -60,7 +60,15 @@ php artisan db:seed
 Можна виконати окремо:
 ```bash
 php artisan db:seed --class=FirmaCatalogSeeder
+php artisan db:seed --class=FirmaProductSeeder
 php artisan db:seed --class=LinkerProductSeeder
+php artisan db:seed --class=LinkerOrderSeeder
+php artisan db:seed --class=LinkerOrderProductSeeder
+```
+
+Оскільки числа, що генерують фабрики випадкові, для перевірки роботи таблиці присвоюємо деякими звязаним товарам у LinkerProduct ціни та кількість із FirmaProduct: 
+```bash
+php artisan db:seed --class=TransferPricesSeeder
 ```
 
 ---
@@ -80,7 +88,7 @@ crontab -e
 
 Додайте рядок:
 ```bash
-0 * * * * cd /full/path/to/project && php artisan schedule:run >> /dev/null 2>&1
+0 * * * * cd /повний/шлях/до/папки/проекту && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 
@@ -88,13 +96,13 @@ crontab -e
 
 ## 📊 Перегляд таблиці
 
-Запусувємо локальний сервер:
+Запускаємо локальний сервер:
 
 ```bash
 php artisan serve
 ```
 
-Таблиця з даними доступна за маршрутом:
+Таблиця з даними доступна у браузері за адресою:
 
 ```
 http://localhost:8000/
