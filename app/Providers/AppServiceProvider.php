@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\ProductRepository;
 use App\Repositories\SalesCalculatorRepository;
 use App\Service\ProductDataService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrapFive();
     }
 }

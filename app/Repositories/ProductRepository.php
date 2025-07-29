@@ -20,28 +20,23 @@ class ProductRepository
         return FirmaCatalog::all();
     }
 
-    public function getFormattedProducts(?int $catalogId): Collection
+    public function getFormattedProducts(?int $catalogId = null)
     {
-        return FirmaProduct::with('catalog', 'linkerProduct')
-            ->when($catalogId, fn($q) => $q->where('catalog_id', $catalogId))
-            ->limit(10000)
-            ->get()
-            ->map(function ($product) {
-                $baseData = $this->formatProduct($product);
+        $query = FirmaProduct::with('catalog', 'linkerProduct')
+            ->when($catalogId, fn($q) => $q->where('catalog_id', $catalogId));
 
-                // Додаємо метрики продажів тільки якщо є зв'язаний linkerProduct
-                if ($product->linkerProduct) {
-                    $salesData = $this->salesCalculator->calculateSalesMetrics($product->linkerProduct->id);
-                    return array_merge($baseData, $salesData);
-                }
+        $transformer = fn($product) => array_merge(
+            $this->formatProduct($product),
+            $product->linkerProduct
+                ? $this->salesCalculator->calculateSalesMetrics($product->linkerProduct->id)
+                : [
+                'total_sales' => 0,
+                'avg_sales_7d' => 0,
+                'sales_by_source' => []
+            ]
+        );
 
-                // Повертаємо базові дані з нульовими значеннями для продажів
-                return array_merge($baseData, [
-                    'total_sales' => 0,
-                    'avg_sales_7d' => 0,
-                    'sales_by_source' => []
-                ]);
-            });
+        return$query->paginate(50)->through($transformer);
     }
 
     protected function formatProduct($product): array
