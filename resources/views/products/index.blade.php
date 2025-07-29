@@ -34,13 +34,17 @@
                     <tr>
                         <td>{{ $p['firma_id'] }}<br>{{ $p['linker_id'] ?? '—' }}</td>
                         <td>{{ $p['name'] }}<br>{{ $p['sku'] }} / {{ $p['ean'] }}</td>
-                        <td class="{{ $p['firma_quantity'] !== $p['linker_quantity'] ? 'table-danger' : '' }}">
+                        <td>
                             {{ $p['firma_quantity'] }}<br>
-                            {{ $p['linker_quantity'] ?? '—' }}
+                            <span class="{{ $p['firma_quantity'] !== $p['linker_quantity'] ? 'text-danger fw-bold' : '' }}">
+                                {{ $p['linker_quantity'] ?? '—' }}
+                            </span>
                         </td>
-                        <td class="{{ $p['firma_price'] !== $p['linker_price'] ? 'table-danger' : '' }}">
+                        <td>
                             {{ $p['firma_price'] }}<br>
-                            {{ $p['linker_price'] ?? '—' }}
+                            <span class="{{ $p['firma_price'] != $p['linker_price'] ? 'text-danger fw-bold' : '' }}">
+                                {{ $p['linker_price'] ?? '—' }}
+                            </span>
                         </td>
                         <td>{{ $p['total_sales'] }}</td>
                         <td>{{ $p['avg_sales_7d'] }}</td>

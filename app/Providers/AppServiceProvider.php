@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\ProductRepository;
+use App\Repositories\SalesCalculatorRepository;
+use App\Service\ProductDataService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(ProductDataService::class, function ($app) {
+            return new ProductDataService(
+                $app->make(ProductRepository::class),
+                $app->make(SalesCalculatorRepository::class)
+            );
+        });
     }
 
     /**

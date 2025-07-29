@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->foreignId('firma_product_id')->constrained('firma_products');
             $table->timestamps();
+
         });
     }
 
