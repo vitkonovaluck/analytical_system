@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('firma_product_id')->constrained('firma_products');
             $table->timestamps();
 
+            $table->index('firma_product_id');
         });
     }
 

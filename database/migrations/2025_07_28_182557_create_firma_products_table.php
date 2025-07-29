@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->foreignId('catalog_id')->constrained('firma_catalogs');
             $table->timestamps();
+
+            $table->index('catalog_id');
         });
     }
 

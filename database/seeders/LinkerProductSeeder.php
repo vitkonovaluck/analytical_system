@@ -13,6 +13,6 @@ class LinkerProductSeeder extends Seeder
      */
     public function run(): void
     {
-        LinkerProduct::factory()->count(1000)->create();
+        LinkerProduct::factory()->count(900)->create();
     }
 }
