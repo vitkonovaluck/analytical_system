@@ -1,3 +1,7 @@
+@php
+    app()->setLocale('uk');
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
